@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREATIVO Soluciones Tecnológicas - Desarrollo & Soporte</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --text-main: #f4f4f4;
+            --text-muted: #a0a0a0;
+            --accent-blue: #00d2ff;
+            --accent-purple: #9b51e0;
+            --accent-red: #ff3366;
+            --watermark-opacity: 0.04;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Marca de Agua con el Logo */
+        .watermark-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            /* ACÁ CAMBIAMOS LA RUTA */
+            background-image: url('logo.png');
+            background-repeat: no-repeat; background-attachment: fixed; background-position: center;
+            opacity: var(--watermark-opacity); z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; background-color: rgba(8, 8, 8, 0.95);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            border-bottom: 1px solid #222;
+            transition: all 0.3s;
+        }
+
+        .logo-nav { height: 80px; border-radius: 1px; }
+
+        .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent-blue); }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
+            padding: 0.6rem 1.4rem; border-radius: 25px; color: white !important;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 0 5%;
+            background: radial-gradient(circle at center, #111 0%, var(--bg-color) 80%);
+        }
+
+        .hero-logo {
+                    max-height: 750px;
+                    width: auto;
+                    margin-bottom: -120px; /* <--- ACÁ: Le pusimos un margen negativo para subir el título */
+                    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
+                }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.1; }
+        .highlight {
+            background: linear-gradient(to right, var(--accent-red), var(--accent-purple), var(--accent-blue));
+            -webkit-background-clip: text; color: transparent;
+        }
+
+        .btn-secondary {
+            display: inline-block; margin-top: 2rem; padding: 0.9rem 2.2rem;
+            border: 2px solid var(--accent-blue); border-radius: 30px;
+            color: var(--accent-blue); text-decoration: none; font-weight: bold; transition: 0.3s;
+        }
+        .btn-secondary:hover { background: var(--accent-blue); color: #000; }
+
+        /* Sections */
+        .section { padding: 6rem 5%; text-align: center; }
+        .dark-bg { background-color: #0c0c0c; }
+        .section h2 { font-size: 2.5rem; margin-bottom: 3.5rem; }
+
+        .grid-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg); padding: 2.5rem; border-radius: 20px;
+            border: 1px solid #222; transition: 0.4s; position: relative;
+        }
+        .card:hover { transform: translateY(-10px); border-color: #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .card i { font-size: 2.5rem; color: var(--accent-blue); margin-bottom: 1.5rem; }
+        .card h3 { margin-bottom: 1rem; font-size: 1.4rem; }
+        .card p { color: var(--text-muted); line-height: 1.6; }
+
+        .app-card { border-top: 4px solid var(--accent-purple); }
+
+        /* Galería */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;
+        }
+        .gallery-item {
+            width: 100%; border-radius: 12px; transition: 0.3s; cursor: pointer;
+            border: 1px solid #333; filter: grayscale(20%);
+        }
+        .gallery-item:hover { transform: scale(1.03); filter: grayscale(0%) brightness(1.1); }
+
+        /* Animación Reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
+            background: #25d366; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 30px;
+            color: white; z-index: 2000; transition: 0.3s; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .whatsapp-float:hover { transform: scale(1.15); }
+
+        footer { padding: 3rem; border-top: 1px solid #222; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero-logo { max-height: 120px; }
+            .nav-links { display: none; } /* Simplificación para móvil */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="watermark-overlay"></div>
+
+    <nav class="navbar" id="mainNav">
+        <div class="logo-container">
+            <img src="logo.png" alt="CREATIVO Logo" class="logo-nav">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#soluciones">Soluciones</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="https://wa.me/549XXXXXXXXX" class="btn-primary">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content reveal">
+           <img src="logo.png" alt="CREATIVO Logo" class="hero-logo">
+            <h1>Expertos en <span class="highlight">Soluciones Tecnológicas</span></h1>
+            <p>Sistemas de gestión profesional, aplicaciones web y soporte técnico integral para impulsar tu crecimiento.</p>
+            <a href="#servicios" class="btn-secondary">Nuestros Servicios</a>
+        </div>
+    </header>
+
+    <section id="servicios" class="section">
+        <h2 class="reveal">Servicios Corporativos</h2>
+        <div class="grid-container">
+            <div class="card reveal">
+                <i class="fas fa-desktop"></i>
+                <h3>Sistemas Gestores</h3>
+                <p>Automatización completa para restaurantes, bares, despensas y gestión académica. Control de stock y facturación.</p>
+            </div>
+            <div class="card reveal">
+                <i class="fas fa-notes-medical"></i>
+                <h3>Historias Clínicas</h3>
+                <p>Sistemas digitales seguros para la gestión de pacientes y seguimiento médico eficiente.</p>
+            </div>
+            <div class="card reveal">
+                <i class="fas fa-globe"></i>
+                <h3>Landings Profesionales</h3>
+                <p>Presencia web de alto impacto para empresas y profesionales independientes.</p>
+            </div>
+            <div class="card reveal">
+                <i class="fas fa-laptop-medical"></i>
+                <h3>Reparación de PC</h3>
+                <p>Mantenimiento preventivo, correctivo y armado de equipos de alto rendimiento.</p>
+            </div>
+            <div class="card reveal">
+                <i class="fas fa-code-branch"></i>
+                <h3>Software a Medida</h3>
+                <p>Desarrollamos soluciones específicas basadas en tus requerimientos y procesos actuales.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="soluciones" class="section dark-bg">
+        <h2 class="reveal">Apps & Experiencias Digitales</h2>
+        <div class="grid-container">
+            <div class="card app-card reveal">
+                <i class="fas fa-birthday-cake" style="color: #f2994a;"></i>
+                <h3>Landings para Eventos</h3>
+                <p>Invitaciones interactivas para bodas, XV, egresos y cumpleaños. ¡Toda tu fiesta en un link!</p>
+            </div>
+            <div class="card app-card reveal">
+                <i class="fas fa-qrcode" style="color: var(--accent-red);"></i>
+                <h3>Party QR Cam</h3>
+                <p>Carrusel en vivo: tus invitados suben fotos vía QR y se proyectan al instante. Recopilación final en .RAR para descargar.</p>
+            </div>
+            <div class="card app-card reveal">
+                <i class="fas fa-chart-line" style="color: var(--accent-purple);"></i>
+                <h3>Gestor de Gastos</h3>
+                <p>Mantené el control total de tus finanzas personales o de negocio con nuestra herramienta intuitiva.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="section">
+        <h2 class="reveal">Galería de Proyectos</h2>
+        <div class="gallery-grid reveal">
+            <img src="https://via.placeholder.com/500x350/121212/00d2ff?text=Gestor+Academico" class="gallery-item" alt="Gestor Académico">
+            <img src="https://via.placeholder.com/500x350/121212/9b51e0?text=Sistema+Bar" class="gallery-item" alt="Sistema Bar">
+            <img src="https://via.placeholder.com/500x350/121212/ff3366?text=Party+QR+Preview" class="gallery-item" alt="Party QR">
+            <img src="https://via.placeholder.com/500x350/121212/f2994a?text=Landing+XV+Años" class="gallery-item" alt="Invitación Digital">
+        </div>
+    </section>
+
+    <a href="https://wa.me/549XXXXXXXXX" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <p>&copy; 2026 Franco Pioli @CreativoSoluciones. Córdoba, Argentina.</p>
+    </footer>
+
+    <script>
+        // Animación de aparición con el scroll
+        const reveals = document.querySelectorAll('.reveal');
+
+        function checkReveal() {
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkReveal);
+        window.addEventListener('load', checkReveal);
+
+        // Efecto Navbar al bajar
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 80) {
+                nav.style.backgroundColor = 'rgba(5, 5, 5, 0.98)';
+                nav.style.padding = '0.7rem 5%';
+                nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.4)';
+            } else {
+                nav.style.backgroundColor = 'rgba(8, 8, 8, 0.95)';
+                nav.style.padding = '1rem 5%';
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
