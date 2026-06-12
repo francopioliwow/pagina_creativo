@@ -1,272 +1,339 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CREATIVO Soluciones Tecnológicas - Desarrollo & Soporte</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #080808;
-            --card-bg: #121212;
-            --text-main: #f4f4f4;
-            --text-muted: #a0a0a0;
-            --accent-blue: #00d2ff;
-            --accent-purple: #9b51e0;
-            --accent-red: #ff3366;
-            --watermark-opacity: 0.04;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Creativo Soluciones Tecnológicas: software a medida, aplicaciones para eventos, gestores académicos, registros de documentación y reparación de computadoras." />
+  <title>Creativo | Soluciones Tecnológicas</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Playfair Display', 'serif'],
+          },
+          colors: {
+            base: '#050816',
+            panel: '#0b1024',
+            azul: '#1f6fff',
+            cyan: '#5ee7ff',
+            verde: '#9cff5f',
+            fucsia: '#ff4fd8',
+            amarillo: '#ffd166'
+          },
+          boxShadow: {
+            glow: '0 0 80px rgba(94, 231, 255, .18)',
+            greenGlow: '0 0 70px rgba(156, 255, 95, .14)',
+          }
         }
-
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* Marca de Agua con el Logo */
-        .watermark-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* ACÁ CAMBIAMOS LA RUTA */
-            background-image: url('logo.png');
-            background-repeat: no-repeat; background-attachment: fixed; background-position: center;
-            opacity: var(--watermark-opacity); z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Navbar */
-        .navbar {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1rem 5%; background-color: rgba(8, 8, 8, 0.95);
-            position: fixed; width: 100%; top: 0; z-index: 1000;
-            border-bottom: 1px solid #222;
-            transition: all 0.3s;
-        }
-
-        .logo-nav { height: 80px; border-radius: 1px; }
-
-        .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; }
-        .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 500; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent-blue); }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
-            padding: 0.6rem 1.4rem; border-radius: 25px; color: white !important;
-            font-weight: bold;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh; display: flex; align-items: center; justify-content: center;
-            text-align: center; padding: 0 5%;
-            background: radial-gradient(circle at center, #111 0%, var(--bg-color) 80%);
-        }
-
-        .hero-logo {
-                    max-height: 750px;
-                    width: auto;
-                    margin-bottom: -120px; /* <--- ACÁ: Le pusimos un margen negativo para subir el título */
-                    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
-                }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.1; }
-        .highlight {
-            background: linear-gradient(to right, var(--accent-red), var(--accent-purple), var(--accent-blue));
-            -webkit-background-clip: text; color: transparent;
-        }
-
-        .btn-secondary {
-            display: inline-block; margin-top: 2rem; padding: 0.9rem 2.2rem;
-            border: 2px solid var(--accent-blue); border-radius: 30px;
-            color: var(--accent-blue); text-decoration: none; font-weight: bold; transition: 0.3s;
-        }
-        .btn-secondary:hover { background: var(--accent-blue); color: #000; }
-
-        /* Sections */
-        .section { padding: 6rem 5%; text-align: center; }
-        .dark-bg { background-color: #0c0c0c; }
-        .section h2 { font-size: 2.5rem; margin-bottom: 3.5rem; }
-
-        .grid-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
-        }
-
-        .card {
-            background: var(--card-bg); padding: 2.5rem; border-radius: 20px;
-            border: 1px solid #222; transition: 0.4s; position: relative;
-        }
-        .card:hover { transform: translateY(-10px); border-color: #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .card i { font-size: 2.5rem; color: var(--accent-blue); margin-bottom: 1.5rem; }
-        .card h3 { margin-bottom: 1rem; font-size: 1.4rem; }
-        .card p { color: var(--text-muted); line-height: 1.6; }
-
-        .app-card { border-top: 4px solid var(--accent-purple); }
-
-        /* Galería */
-        .gallery-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;
-        }
-        .gallery-item {
-            width: 100%; border-radius: 12px; transition: 0.3s; cursor: pointer;
-            border: 1px solid #333; filter: grayscale(20%);
-        }
-        .gallery-item:hover { transform: scale(1.03); filter: grayscale(0%) brightness(1.1); }
-
-        /* Animación Reveal */
-        .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* WhatsApp Float */
-        .whatsapp-float {
-            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
-            background: #25d366; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; font-size: 30px;
-            color: white; z-index: 2000; transition: 0.3s; text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        .whatsapp-float:hover { transform: scale(1.15); }
-
-        footer { padding: 3rem; border-top: 1px solid #222; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero-logo { max-height: 120px; }
-            .nav-links { display: none; } /* Simplificación para móvil */
-        }
-    </style>
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
+<body class="bg-base text-white antialiased selection:bg-cyan/30 selection:text-white">
 
-    <div class="watermark-overlay"></div>
+  <div class="site-bg"></div>
 
-    <nav class="navbar" id="mainNav">
-        <div class="logo-container">
-            <img src="logo.png" alt="CREATIVO Logo" class="logo-nav">
+  <!-- NAVBAR -->
+  <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#050816]/80 backdrop-blur-xl">
+    <nav class="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-5 lg:px-8">
+      <a href="#inicio" class="flex items-center gap-3">
+        <img src="assets/logo-creativo.png" alt="Creativo Soluciones Tecnológicas" class="h-12 w-12 object-contain drop-shadow-[0_0_18px_rgba(94,231,255,.22)]" />
+        <div class="leading-tight">
+          <p class="text-lg font-black tracking-tight">Creativo</p>
+          <p class="text-[11px] uppercase tracking-[0.28em] text-white/55">Soluciones Tecnológicas</p>
         </div>
-        <ul class="nav-links">
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#soluciones">Soluciones</a></li>
-            <li><a href="#galeria">Galería</a></li>
-            <li><a href="https://wa.me/549XXXXXXXXX" class="btn-primary">Contacto</a></li>
-        </ul>
+      </a>
+
+      <button id="menuBtn" class="grid h-11 w-11 place-items-center rounded-full border border-white/10 text-white/80 lg:hidden" aria-label="Abrir menú">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div id="navMenu" class="hidden items-center gap-8 lg:flex">
+        <a href="#inicio" class="nav-link">Inicio</a>
+        <a href="#servicios" class="nav-link">Servicios</a>
+        <a href="#sistemas" class="nav-link">Sistemas</a>
+        <a href="#clientes" class="nav-link">Clientes</a>
+        <a href="#contacto" class="rounded-full bg-white px-6 py-3 text-sm font-bold text-base transition hover:-translate-y-0.5 hover:bg-cyan">Contacto</a>
+      </div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-content reveal">
-           <img src="logo.png" alt="CREATIVO Logo" class="hero-logo">
-            <h1>Expertos en <span class="highlight">Soluciones Tecnológicas</span></h1>
-            <p>Sistemas de gestión profesional, aplicaciones web y soporte técnico integral para impulsar tu crecimiento.</p>
-            <a href="#servicios" class="btn-secondary">Nuestros Servicios</a>
-        </div>
-    </header>
+    <div id="mobileMenu" class="hidden border-t border-white/10 bg-[#050816]/95 px-5 py-5 lg:hidden">
+      <div class="grid gap-4 text-sm font-semibold text-white/75">
+        <a href="#inicio" class="mobile-link">Inicio</a>
+        <a href="#servicios" class="mobile-link">Servicios</a>
+        <a href="#sistemas" class="mobile-link">Sistemas</a>
+        <a href="#clientes" class="mobile-link">Clientes</a>
+        <a href="#contacto" class="mobile-link">Contacto</a>
+      </div>
+    </div>
+  </header>
 
-    <section id="servicios" class="section">
-        <h2 class="reveal">Servicios Corporativos</h2>
-        <div class="grid-container">
-            <div class="card reveal">
-                <i class="fas fa-desktop"></i>
-                <h3>Sistemas Gestores</h3>
-                <p>Automatización completa para restaurantes, bares, despensas y gestión académica. Control de stock y facturación.</p>
-            </div>
-            <div class="card reveal">
-                <i class="fas fa-notes-medical"></i>
-                <h3>Historias Clínicas</h3>
-                <p>Sistemas digitales seguros para la gestión de pacientes y seguimiento médico eficiente.</p>
-            </div>
-            <div class="card reveal">
-                <i class="fas fa-globe"></i>
-                <h3>Landings Profesionales</h3>
-                <p>Presencia web de alto impacto para empresas y profesionales independientes.</p>
-            </div>
-            <div class="card reveal">
-                <i class="fas fa-laptop-medical"></i>
-                <h3>Reparación de PC</h3>
-                <p>Mantenimiento preventivo, correctivo y armado de equipos de alto rendimiento.</p>
-            </div>
-            <div class="card reveal">
-                <i class="fas fa-code-branch"></i>
-                <h3>Software a Medida</h3>
-                <p>Desarrollamos soluciones específicas basadas en tus requerimientos y procesos actuales.</p>
-            </div>
+  <!-- HERO -->
+  <main id="inicio" class="relative min-h-screen overflow-hidden pt-[74px]">
+    <section class="mx-auto grid min-h-[calc(100vh-74px)] max-w-7xl items-center gap-12 px-5 py-16 lg:grid-cols-[1fr_1.05fr] lg:px-8 lg:py-20">
+      <div class="relative z-10 max-w-2xl">
+        <div class="mb-7 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 shadow-glow backdrop-blur">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-verde opacity-75"></span>
+            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-verde"></span>
+          </span>
+          <span class="text-xs font-bold uppercase tracking-[0.22em] text-white/70">Software · Eventos · Soporte Técnico</span>
         </div>
+
+        <p class="mb-4 text-sm font-bold tracking-[0.22em] text-cyan">#SolucionesQueFuncionan</p>
+
+        <h1 class="text-5xl font-black leading-[0.95] tracking-[-0.06em] text-white sm:text-6xl lg:text-7xl">
+          Software a medida para negocios,
+          <span class="font-display font-bold italic tracking-[-0.03em] text-transparent bg-gradient-to-r from-cyan via-verde to-fucsia bg-clip-text">eventos</span>
+          e instituciones.
+        </h1>
+
+        <p class="mt-7 max-w-xl text-lg leading-8 text-white/72">
+          Desarrollo sistemas simples, modernos y adaptados a la forma real en que trabaja tu negocio: aplicaciones de fotos para eventos, registros de documentación, gestores académicos, restaurantes y soluciones administrativas.
+        </p>
+
+        <p class="mt-5 max-w-xl text-base leading-7 text-white/62">
+          Además, brindo reparación y mantenimiento de computadoras para que tu tecnología no te frene cuando más la necesitás.
+        </p>
+
+        <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+          <a href="https://wa.me/5490000000000" target="_blank" class="group inline-flex items-center justify-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-black text-base shadow-greenGlow transition hover:-translate-y-1 hover:bg-verde">
+            Consultar por WhatsApp
+            <i class="fa-solid fa-arrow-right transition group-hover:translate-x-1"></i>
+          </a>
+          <a href="#servicios" class="inline-flex items-center justify-center gap-3 rounded-full border border-white/15 bg-white/[0.03] px-7 py-4 text-sm font-black text-white backdrop-blur transition hover:-translate-y-1 hover:border-cyan/60 hover:bg-cyan/10">
+            Ver servicios
+            <i class="fa-solid fa-arrow-down text-cyan"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- HERO VISUAL / CAROUSEL -->
+      <div class="relative z-10 mx-auto w-full max-w-[680px] lg:max-w-none">
+        <div class="absolute -left-8 top-10 hidden rounded-3xl border border-white/10 bg-white/[0.06] p-4 shadow-glow backdrop-blur-xl sm:block">
+          <div class="flex items-center gap-3">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-verde text-base">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <div>
+              <p class="text-2xl font-black">+18</p>
+              <p class="text-xs font-semibold text-white/60">módulos posibles</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute -right-3 top-0 z-20 hidden rounded-3xl border border-white/10 bg-[#10172f]/90 p-5 shadow-glow backdrop-blur-xl md:block">
+          <div class="mb-3 flex items-center justify-between gap-8 text-white/65">
+            <i class="fa-solid fa-laptop-code text-2xl"></i>
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </div>
+          <p class="text-3xl font-black">24/7</p>
+          <p class="text-xs font-semibold text-white/60">gestión online</p>
+          <div class="mt-4 flex h-16 items-end gap-2">
+            <span class="bar h-8"></span><span class="bar h-12"></span><span class="bar h-7"></span><span class="bar h-14"></span><span class="bar h-10"></span>
+          </div>
+        </div>
+
+        <div class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-4 shadow-glow backdrop-blur-xl sm:p-6">
+          <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[#050816] to-transparent"></div>
+          <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[#050816] to-transparent"></div>
+
+          <div class="video-carousel">
+            <div class="video-track">
+              <article class="video-card card-blue">
+                <span class="card-kicker">Sistema</span>
+                <h3>Gestión documental</h3>
+                <p>Registros, estados, firmas, reportes y exportaciones.</p>
+                <i class="fa-solid fa-folder-tree"></i>
+              </article>
+              <article class="video-card card-green">
+                <span class="card-kicker">Eventos</span>
+                <h3>Fotos en vivo</h3>
+                <p>Galerías, pantallas, QR y descarga para invitados.</p>
+                <i class="fa-solid fa-camera-retro"></i>
+              </article>
+              <article class="video-card card-pink">
+                <span class="card-kicker">Negocios</span>
+                <h3>Apps para restaurantes</h3>
+                <p>Pedidos, cartas digitales, reservas y administración.</p>
+                <i class="fa-solid fa-utensils"></i>
+              </article>
+              <article class="video-card card-yellow">
+                <span class="card-kicker">Académico</span>
+                <h3>Gestores educativos</h3>
+                <p>Alumnos, cursos, asistencias, informes y certificados.</p>
+                <i class="fa-solid fa-graduation-cap"></i>
+              </article>
+              <article class="video-card card-purple">
+                <span class="card-kicker">Soporte</span>
+                <h3>Reparación PC</h3>
+                <p>Diagnóstico, mantenimiento, instalación y optimización.</p>
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+              </article>
+
+              <!-- Repetidos para que el carrusel sea infinito -->
+              <article class="video-card card-blue">
+                <span class="card-kicker">Sistema</span>
+                <h3>Gestión documental</h3>
+                <p>Registros, estados, firmas, reportes y exportaciones.</p>
+                <i class="fa-solid fa-folder-tree"></i>
+              </article>
+              <article class="video-card card-green">
+                <span class="card-kicker">Eventos</span>
+                <h3>Fotos en vivo</h3>
+                <p>Galerías, pantallas, QR y descarga para invitados.</p>
+                <i class="fa-solid fa-camera-retro"></i>
+              </article>
+              <article class="video-card card-pink">
+                <span class="card-kicker">Negocios</span>
+                <h3>Apps para restaurantes</h3>
+                <p>Pedidos, cartas digitales, reservas y administración.</p>
+                <i class="fa-solid fa-utensils"></i>
+              </article>
+              <article class="video-card card-yellow">
+                <span class="card-kicker">Académico</span>
+                <h3>Gestores educativos</h3>
+                <p>Alumnos, cursos, asistencias, informes y certificados.</p>
+                <i class="fa-solid fa-graduation-cap"></i>
+              </article>
+              <article class="video-card card-purple">
+                <span class="card-kicker">Soporte</span>
+                <h3>Reparación PC</h3>
+                <p>Diagnóstico, mantenimiento, instalación y optimización.</p>
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute bottom-8 left-8 z-20 hidden rounded-3xl border border-white/10 bg-[#10172f]/90 p-4 shadow-glow backdrop-blur-xl md:block">
+          <div class="flex items-center gap-3">
+            <div class="grid h-11 w-11 place-items-center rounded-2xl bg-cyan text-base">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div>
+              <p class="text-2xl font-black">100%</p>
+              <p class="text-xs font-semibold text-white/60">adaptado a tu flujo</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="soluciones" class="section dark-bg">
-        <h2 class="reveal">Apps & Experiencias Digitales</h2>
-        <div class="grid-container">
-            <div class="card app-card reveal">
-                <i class="fas fa-birthday-cake" style="color: #f2994a;"></i>
-                <h3>Landings para Eventos</h3>
-                <p>Invitaciones interactivas para bodas, XV, egresos y cumpleaños. ¡Toda tu fiesta en un link!</p>
-            </div>
-            <div class="card app-card reveal">
-                <i class="fas fa-qrcode" style="color: var(--accent-red);"></i>
-                <h3>Party QR Cam</h3>
-                <p>Carrusel en vivo: tus invitados suben fotos vía QR y se proyectan al instante. Recopilación final en .RAR para descargar.</p>
-            </div>
-            <div class="card app-card reveal">
-                <i class="fas fa-chart-line" style="color: var(--accent-purple);"></i>
-                <h3>Gestor de Gastos</h3>
-                <p>Mantené el control total de tus finanzas personales o de negocio con nuestra herramienta intuitiva.</p>
-            </div>
+    <!-- LOGOS / MARQUEE -->
+    <section id="clientes" class="relative z-10 border-y border-white/10 bg-white/[0.02] py-7">
+      <div class="marquee marquee-right">
+        <div class="marquee-track">
+          <span class="logo-pill"><i class="fa-brands fa-python"></i> Python</span>
+          <span class="logo-pill"><i class="fa-solid fa-layer-group"></i> Django</span>
+          <span class="logo-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
+          <span class="logo-pill"><i class="fa-brands fa-github"></i> GitHub</span>
+          <span class="logo-pill"><i class="fa-solid fa-cloud"></i> Cloudflare</span>
+          <span class="logo-pill"><i class="fa-brands fa-whatsapp"></i> WhatsApp</span>
+          <span class="logo-pill"><i class="fa-brands fa-windows"></i> Windows</span>
+          <span class="logo-pill"><i class="fa-solid fa-database"></i> Bases de datos</span>
+
+          <span class="logo-pill"><i class="fa-brands fa-python"></i> Python</span>
+          <span class="logo-pill"><i class="fa-solid fa-layer-group"></i> Django</span>
+          <span class="logo-pill"><i class="fa-brands fa-js"></i> JavaScript</span>
+          <span class="logo-pill"><i class="fa-brands fa-github"></i> GitHub</span>
+          <span class="logo-pill"><i class="fa-solid fa-cloud"></i> Cloudflare</span>
+          <span class="logo-pill"><i class="fa-brands fa-whatsapp"></i> WhatsApp</span>
+          <span class="logo-pill"><i class="fa-brands fa-windows"></i> Windows</span>
+          <span class="logo-pill"><i class="fa-solid fa-database"></i> Bases de datos</span>
         </div>
+      </div>
     </section>
 
-    <section id="galeria" class="section">
-        <h2 class="reveal">Galería de Proyectos</h2>
-        <div class="gallery-grid reveal">
-            <img src="https://via.placeholder.com/500x350/121212/00d2ff?text=Gestor+Academico" class="gallery-item" alt="Gestor Académico">
-            <img src="https://via.placeholder.com/500x350/121212/9b51e0?text=Sistema+Bar" class="gallery-item" alt="Sistema Bar">
-            <img src="https://via.placeholder.com/500x350/121212/ff3366?text=Party+QR+Preview" class="gallery-item" alt="Party QR">
-            <img src="https://via.placeholder.com/500x350/121212/f2994a?text=Landing+XV+Años" class="gallery-item" alt="Invitación Digital">
-        </div>
+    <!-- SERVICES -->
+    <section id="servicios" class="relative z-10 mx-auto max-w-7xl px-5 py-24 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="mb-3 text-sm font-black uppercase tracking-[0.25em] text-verde">Servicios</p>
+        <h2 class="text-4xl font-black tracking-[-0.04em] sm:text-5xl">Tecnología útil, no sistemas complicados.</h2>
+        <p class="mt-5 text-lg leading-8 text-white/62">La idea es que cada sistema resuelva un problema concreto: ahorrar tiempo, ordenar información, vender mejor o mostrar tu trabajo con más calidad.</p>
+      </div>
+
+      <div class="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <article class="service-card">
+          <i class="fa-solid fa-code"></i>
+          <h3>Software a medida</h3>
+          <p>Sistemas web personalizados para negocios, instituciones, emprendimientos y equipos de trabajo.</p>
+        </article>
+        <article class="service-card">
+          <i class="fa-solid fa-camera"></i>
+          <h3>Apps de fotos para eventos</h3>
+          <p>Aplicaciones para compartir fotos, pantallas en vivo, QR, galerías y experiencias digitales para invitados.</p>
+        </article>
+        <article class="service-card">
+          <i class="fa-solid fa-user-gear"></i>
+          <h3>Gestiones personales</h3>
+          <p>Paneles para organizar turnos, tareas, clientes, pagos, vencimientos, archivos y movimientos diarios.</p>
+        </article>
+        <article class="service-card">
+          <i class="fa-solid fa-utensils"></i>
+          <h3>Restaurantes y comercios</h3>
+          <p>Cartas digitales, pedidos, control interno, clientes, reservas y administración simple.</p>
+        </article>
+        <article class="service-card">
+          <i class="fa-solid fa-school"></i>
+          <h3>Gestores académicos</h3>
+          <p>Cursos, alumnos, asistencias, certificados, expedientes educativos y reportes institucionales.</p>
+        </article>
+        <article class="service-card">
+          <i class="fa-solid fa-computer"></i>
+          <h3>Reparación de computadoras</h3>
+          <p>Diagnóstico, limpieza, formateo, instalación de programas, optimización y mantenimiento preventivo.</p>
+        </article>
+      </div>
     </section>
 
-    <a href="https://wa.me/549XXXXXXXXX" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- SYSTEMS / CTA -->
+    <section id="sistemas" class="relative z-10 mx-auto max-w-7xl px-5 pb-24 lg:px-8">
+      <div class="overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-8 shadow-glow md:p-12">
+        <div class="grid gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-center">
+          <div>
+            <p class="mb-3 text-sm font-black uppercase tracking-[0.25em] text-cyan">Proceso de trabajo</p>
+            <h2 class="text-4xl font-black tracking-[-0.04em] sm:text-5xl">Primero entendemos el problema, después armamos el sistema.</h2>
+            <p class="mt-5 max-w-2xl text-lg leading-8 text-white/65">No se trata de llenar la página de funciones innecesarias. Se diseña una solución limpia, rápida y fácil de usar para que puedas trabajar mejor desde el primer día.</p>
+          </div>
+          <div class="grid gap-4">
+            <div class="step"><span>01</span><p>Relevamiento de lo que necesitás resolver.</p></div>
+            <div class="step"><span>02</span><p>Diseño de pantallas y flujo de trabajo.</p></div>
+            <div class="step"><span>03</span><p>Desarrollo, pruebas y ajustes.</p></div>
+            <div class="step"><span>04</span><p>Entrega, capacitación y soporte.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2026 Franco Pioli @CreativoSoluciones. Córdoba, Argentina.</p>
-    </footer>
+    <!-- CONTACT -->
+    <section id="contacto" class="relative z-10 mx-auto max-w-7xl px-5 pb-28 lg:px-8">
+      <div class="rounded-[2rem] border border-verde/20 bg-verde/10 p-8 text-center shadow-greenGlow md:p-12">
+        <img src="assets/logo-creativo.png" alt="Creativo" class="mx-auto mb-5 h-24 w-24 object-contain" />
+        <h2 class="text-4xl font-black tracking-[-0.04em]">¿Querés una solución para tu negocio?</h2>
+        <p class="mx-auto mt-4 max-w-2xl text-lg leading-8 text-white/70">Contame qué necesitás hacer, qué problema querés ordenar o qué idea querés convertir en sistema.</p>
+        <a href="https://wa.me/5490000000000" target="_blank" class="mt-8 inline-flex items-center justify-center gap-3 rounded-full bg-verde px-8 py-4 text-sm font-black text-base transition hover:-translate-y-1 hover:bg-white">
+          Hablar ahora
+          <i class="fa-brands fa-whatsapp text-lg"></i>
+        </a>
+      </div>
+    </section>
+  </main>
 
-    <script>
-        // Animación de aparición con el scroll
-        const reveals = document.querySelectorAll('.reveal');
+  <a href="https://wa.me/5490000000000" target="_blank" aria-label="WhatsApp" class="fixed bottom-6 right-6 z-50 grid h-16 w-16 place-items-center rounded-3xl bg-[#25D366] text-3xl text-white shadow-[0_20px_60px_rgba(37,211,102,.35)] transition hover:-translate-y-1 hover:scale-105">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
 
-        function checkReveal() {
-            reveals.forEach(el => {
-                const windowHeight = window.innerHeight;
-                const elementTop = el.getBoundingClientRect().top;
-                const elementVisible = 100;
-
-                if (elementTop < windowHeight - elementVisible) {
-                    el.classList.add('active');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', checkReveal);
-        window.addEventListener('load', checkReveal);
-
-        // Efecto Navbar al bajar
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('mainNav');
-            if (window.scrollY > 80) {
-                nav.style.backgroundColor = 'rgba(5, 5, 5, 0.98)';
-                nav.style.padding = '0.7rem 5%';
-                nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.4)';
-            } else {
-                nav.style.backgroundColor = 'rgba(8, 8, 8, 0.95)';
-                nav.style.padding = '1rem 5%';
-                nav.style.boxShadow = 'none';
-            }
-        });
-    </script>
+  <script src="js/main.js"></script>
 </body>
 </html>
