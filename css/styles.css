@@ -153,6 +153,266 @@ body {
 .card-yellow { background: linear-gradient(145deg, #ff9f1c, #ffd166 62%, #10172f); }
 .card-purple { background: linear-gradient(145deg, #27187e, #8b5cf6 60%, #10172f); }
 
+
+/* Hero: tarjetas superpuestas estilo Wodes */
+.hero-showcase {
+  position: relative;
+  min-height: 500px;
+  display: grid;
+  place-items: center;
+  border-radius: 38px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 36%, rgba(94,231,255,.16), transparent 32%),
+    radial-gradient(circle at 62% 66%, rgba(255,79,216,.10), transparent 34%);
+}
+
+.wodes-card-stage {
+  position: relative;
+  width: min(660px, 100%);
+  height: 430px;
+  perspective: 1200px;
+}
+
+.stack-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 244px;
+  height: 354px;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,.16);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: inset 0 1px rgba(255,255,255,.18), 0 26px 90px rgba(0,0,0,.48);
+  transform-origin: center;
+  opacity: 0;
+  filter: blur(5px);
+  transition:
+    transform .95s cubic-bezier(.2,.9,.2,1),
+    opacity .95s ease,
+    filter .95s ease,
+    z-index .95s ease;
+  will-change: transform, opacity, filter;
+}
+
+.stack-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255,255,255,.45), transparent 28%),
+    linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.035));
+}
+
+.stack-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(5,8,22,.96), rgba(5,8,22,.28) 56%, transparent 100%);
+}
+
+.stack-card.is-active {
+  z-index: 8;
+  opacity: 1;
+  filter: blur(0);
+  transform: translate(-50%, -50%) scale(1.08) rotate(0deg) translateZ(70px);
+}
+
+.stack-card.is-prev {
+  z-index: 5;
+  opacity: .72;
+  filter: blur(1.3px);
+  transform: translate(calc(-50% - 145px), calc(-50% + 8px)) scale(.92) rotate(-4deg) translateZ(0);
+}
+
+.stack-card.is-next {
+  z-index: 5;
+  opacity: .72;
+  filter: blur(1.3px);
+  transform: translate(calc(-50% + 145px), calc(-50% + 8px)) scale(.92) rotate(4deg) translateZ(0);
+}
+
+.stack-card.is-far-left {
+  z-index: 2;
+  opacity: .24;
+  filter: blur(4px);
+  transform: translate(calc(-50% - 265px), calc(-50% + 26px)) scale(.76) rotate(-8deg) translateZ(-120px);
+}
+
+.stack-card.is-far-right {
+  z-index: 2;
+  opacity: .24;
+  filter: blur(4px);
+  transform: translate(calc(-50% + 265px), calc(-50% + 26px)) scale(.76) rotate(8deg) translateZ(-120px);
+}
+
+.stack-card-content,
+.stack-card > i,
+.browser-dots,
+.card-screen {
+  position: relative;
+  z-index: 3;
+}
+
+.stack-card h3 {
+  font-size: 1.48rem;
+  line-height: 1.03;
+  letter-spacing: -0.05em;
+  font-weight: 950;
+}
+
+.stack-card p {
+  margin-top: 10px;
+  color: rgba(255,255,255,.73);
+  font-size: .9rem;
+  line-height: 1.42;
+  font-weight: 650;
+}
+
+.stack-card > i {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  font-size: 2.1rem;
+  color: rgba(255,255,255,.78);
+  text-shadow: 0 12px 30px rgba(0,0,0,.28);
+}
+
+.browser-dots {
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  display: flex;
+  gap: 6px;
+}
+
+.browser-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.66);
+  box-shadow: 0 0 14px rgba(255,255,255,.26);
+}
+
+.card-screen {
+  position: absolute;
+  inset: 60px 18px 116px;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.10);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  box-shadow: inset 0 1px rgba(255,255,255,.16);
+}
+
+.dashboard-screen {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 14px;
+}
+
+.dashboard-screen span {
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255,255,255,.48), rgba(255,255,255,.08));
+}
+
+.dashboard-screen span:first-child {
+  grid-column: span 2;
+}
+
+.photo-screen,
+.academic-screen,
+.repair-screen {
+  display: grid;
+  place-items: center;
+}
+
+.phone-frame {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 118px;
+  border-radius: 22px;
+  border: 3px solid rgba(255,255,255,.72);
+  background: rgba(5,8,22,.24);
+  box-shadow: 0 22px 48px rgba(0,0,0,.28);
+}
+
+.phone-frame i,
+.academic-screen i,
+.repair-screen i {
+  font-size: 2.8rem;
+  color: rgba(255,255,255,.86);
+}
+
+.restaurant-screen {
+  padding: 18px;
+}
+
+.menu-line {
+  height: 14px;
+  margin-bottom: 13px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.66);
+}
+
+.menu-line.big {
+  height: 52px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(255,255,255,.68), rgba(255,255,255,.18));
+}
+
+.stack-card.card-blue { background: linear-gradient(145deg, #063bff, #0ad8ff 62%, #07152f); }
+.stack-card.card-green { background: linear-gradient(145deg, #046b41, #8aff57 65%, #07152f); }
+.stack-card.card-pink { background: linear-gradient(145deg, #4b23e8, #ff43ce 65%, #07152f); }
+.stack-card.card-yellow { background: linear-gradient(145deg, #ed8b00, #ffd166 62%, #07152f); }
+.stack-card.card-purple { background: linear-gradient(145deg, #21126f, #8b5cf6 60%, #07152f); }
+
+@media (max-width: 640px) {
+  .hero-showcase {
+    min-height: 420px;
+    margin-top: 12px;
+  }
+
+  .wodes-card-stage {
+    height: 390px;
+  }
+
+  .stack-card {
+    width: 218px;
+    height: 318px;
+  }
+
+  .stack-card.is-prev {
+    transform: translate(calc(-50% - 88px), calc(-50% + 10px)) scale(.86) rotate(-4deg);
+  }
+
+  .stack-card.is-next {
+    transform: translate(calc(-50% + 88px), calc(-50% + 10px)) scale(.86) rotate(4deg);
+  }
+
+  .stack-card.is-far-left {
+    transform: translate(calc(-50% - 160px), calc(-50% + 24px)) scale(.7) rotate(-8deg);
+  }
+
+  .stack-card.is-far-right {
+    transform: translate(calc(-50% + 160px), calc(-50% + 24px)) scale(.7) rotate(8deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-card {
+    transition: none;
+  }
+}
+
 .bar {
   display: block;
   width: 14px;

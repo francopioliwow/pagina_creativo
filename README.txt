@@ -1,46 +1,62 @@
-CREATIVO - LANDING WEB
-======================
+CREATIVO SOLUCIONES TECNOLÓGICAS - LANDING
 
-Proyecto armado en HTML + Tailwind CDN, sin necesidad de Node ni instalación.
+Cómo abrir:
+1. Descomprimí el ZIP.
+2. Abrí index.html en el navegador.
 
-CÓMO USARLO
-1) Abrí index.html en el navegador.
-2) Cambiá los links de WhatsApp:
-   https://wa.me/5490000000000
-   por tu número real. Ejemplo Argentina:
-   https://wa.me/5493511234567
+Qué se modificó en esta versión:
+- El carrusel principal del hero ahora usa tarjetas superpuestas tipo Wodes.
+- La tarjeta central queda enfocada y las tarjetas laterales pasan por detrás, con blur y escala.
+- El movimiento se controla desde js/main.js.
+- El diseño sigue adaptado a Creativo Soluciones Tecnológicas.
 
-LOGO
-- El logo principal está en:
-  assets/logo-creativo.png
-- Si querés cambiarlo, reemplazá ese archivo manteniendo el mismo nombre.
+Para cambiar el WhatsApp:
+Buscá en index.html:
+https://wa.me/5490000000000
 
-VIDEOS DEL CARRUSEL
-Ahora el carrusel muestra tarjetas animadas de servicios.
-Si querés usar videos reales:
-1) Guardá tus videos en:
-   assets/videos/video-1.mp4
-   assets/videos/video-2.mp4
-2) En index.html, dentro de cada <article class="video-card ..."> podés agregar:
+Y reemplazalo por tu número real. Ejemplo Argentina:
+https://wa.me/5493511234567
 
-   <video autoplay muted loop playsinline class="absolute inset-0 h-full w-full object-cover -z-10">
-     <source src="assets/videos/video-1.mp4" type="video/mp4">
-   </video>
+Para cambiar las tarjetas del hero:
+Buscá en index.html:
+<div class="wodes-card-stage" id="heroCardStage">
 
-3) Mantené el texto por encima para que siga teniendo título y descripción.
+Ahí vas a ver las tarjetas:
+- Gestión documental
+- Fotos en vivo
+- Restaurantes
+- Gestores educativos
+- Reparación PC
 
-LOGOS QUE PASAN ABAJO
-Actualmente pasan logos/textos de tecnologías.
-Si querés poner logos de clientes reales:
-1) Guardá las imágenes en:
-   assets/clientes/logo-1.png
-   assets/clientes/logo-2.png
-2) En index.html, buscá la sección:
-   <!-- LOGOS / MARQUEE -->
-3) Reemplazá los <span class="logo-pill">...</span> por:
+Podés cambiar título, texto e íconos.
 
-   <img src="assets/clientes/logo-1.png" alt="Cliente 1" class="logo-marquee-img">
-   <img src="assets/clientes/logo-2.png" alt="Cliente 2" class="logo-marquee-img">
+Para poner videos reales dentro de las tarjetas:
+Dentro de una tarjeta, agregá un video así, arriba de stack-card-content:
 
-IMPORTANTE
-Repetí los mismos logos dos veces dentro del carrusel para que el movimiento sea infinito y no se corte.
+<video autoplay muted loop playsinline class="card-video">
+  <source src="assets/videos/video-1.mp4" type="video/mp4">
+</video>
+
+Y en css/styles.css podés agregar:
+
+.card-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+Después guardá tus videos en:
+assets/videos/
+
+Para cambiar los logos que pasan abajo:
+En index.html buscá:
+<!-- LOGOS / MARQUEE -->
+
+Podés reemplazar los <span class="logo-pill">...</span> por imágenes:
+
+<img src="assets/clientes/logo-cliente-1.png" alt="Cliente 1" class="logo-marquee-img">
+
+Acordate de repetir los logos dos veces para que el carrusel sea infinito.
